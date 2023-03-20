@@ -1,0 +1,28 @@
+{
+  "name": "openlab-activity-block",
+  "version": "1.0.0",
+  "description": "OL Activity Gutenberg Block",
+  "main": "index.js",
+  "scripts": {
+    "start": "wp-scripts start block/src/index.js --output-path=block/build",
+    "build": "wp-scripts build block/src/index.js --output-path=block/build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openlab-at-city-tech/openlab-activity-block.git"
+  },
+  "keywords": [
+    "openlab",
+    "buddypress",
+    "activity"
+  ],
+  "author": "OpenLab",
+  "license": "GPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/openlab-at-city-tech/openlab-activity-block/issues"
+  },
+  "homepage": "https://github.com/openlab-at-city-tech/openlab-activity-block#readme",
+  "devDependencies": {
+    "@wordpress/scripts": "26.0.0"
+  }
+}
