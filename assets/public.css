@@ -88,3 +88,22 @@ a.olab-activity-item-button:focus {
 .olab-activity-stream-simple .olab-activity-entry-content {
     padding-left: 0;
 }
+
+/** WIDGET **/
+.widget_openlab_activity_block_widget ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.widget_openlab_activity_block_widget ul li {
+    margin-bottom: 15px;
+}
+
+.widget_openlab_activity_block_widget ul li p {
+    margin: 0 0 8px;
+}
+
+.widget_openlab_activity_block_widget a.olab-activity-item-button {
+    color: #fff;
+}

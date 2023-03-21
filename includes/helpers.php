@@ -134,9 +134,6 @@ function olab_get_activity_button_url( $activity ) {
 /**
  * Get group id by site id
  */
-/**
- * Utility function for fetching the group id for a blog
- */
 function olab_get_group_id_by_blog_id( $blog_id ) {
 	global $wpdb, $bp;
 
@@ -154,4 +151,17 @@ function olab_get_group_id_by_blog_id( $blog_id ) {
 	}
 
 	return (int) $group_id;
+}
+
+/**
+ * Get group type by site id
+ */
+function olab_get_group_type_by_blog_id( $blog_id ) {
+	// Get group id
+	$group_id = olab_get_group_id_by_blog_id( $blog_id );
+
+	// Get group type
+	$group_type = groups_get_groupmeta( $group_id, 'wds_group_type' );
+
+	return $group_type;
 }

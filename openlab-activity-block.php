@@ -65,4 +65,10 @@ function ol_activity_block_init() {
 }
 add_action( 'init', 'ol_activity_block_init' );
 
+function ol_activity_block_widget() {
+    register_widget( 'Openlab_Activity_Block_Widget' );
+}
+add_action( 'widgets_init', 'ol_activity_block_widget' );
+
 require_once plugin_dir_path( __FILE__ ) . '/includes/helpers.php';
+require_once plugin_dir_path( __FILE__ ) . '/includes/widget.php';
