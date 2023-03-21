@@ -56,5 +56,13 @@ function ol_activity_block_init() {
         ]
     );
 
+	wp_enqueue_style(
+		'ol-activity-block-public',
+		plugins_url( '/assets/public.css', __FILE__ ),
+		array(),
+		'1.0.0'
+	);
 }
 add_action( 'init', 'ol_activity_block_init' );
+
+require_once plugin_dir_path( __FILE__ ) . '/includes/helpers.php';
