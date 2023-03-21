@@ -3,7 +3,7 @@
 /**
  * Modify the output of the activity items
  */
-function olab_get_activity_action( $activity = null ) {
+function olab_get_activity_action( $activity = null, $displayStyle = 'full' ) {
 	global $activities_template;
 
 	if ( null === $activity ) {
@@ -12,6 +12,12 @@ function olab_get_activity_action( $activity = null ) {
 
 	// Get activity body content
 	$output = $activity->action;
+	
+	// Remove link from the user's display name
+	if( $displayStyle == 'simple' ) {
+		$activity_user_link = bp_core_get_userlink( $activity->user_id );
+		$output = str_replace( $activity_user_link, $activity->display_name, $output );
+	}
 
 	// Remove "in the group/forum" text from the activity on the group activity stream
 	if( bp_is_group() ) {

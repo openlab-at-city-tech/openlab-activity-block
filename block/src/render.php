@@ -33,7 +33,7 @@ function openlab_render_activity_block( $atts ) {
                             <?php endif; ?>
                             <div class="olab-activity-entry-data">
                                 <div class="olab-activity-entry-content">
-                                    <?php echo olab_get_activity_action(); ?>
+                                    <?php echo olab_get_activity_action( null, $displayStyle ); ?>
                                 </div>
                             </div>
                         </div>
