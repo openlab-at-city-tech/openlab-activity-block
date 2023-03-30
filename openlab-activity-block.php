@@ -63,7 +63,7 @@ function ol_activity_block_init() {
 		'1.0.0'
 	);
 }
-add_action( 'init', 'ol_activity_block_init' );
+add_action( 'bp_init', 'ol_activity_block_init' );
 
 function ol_activity_block_widget() {
     register_widget( 'Openlab_Activity_Block_Widget' );
