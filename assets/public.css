@@ -107,3 +107,8 @@ a.olab-activity-item-button:focus {
 .widget_openlab_activity_block_widget a.olab-activity-item-button {
     color: #fff;
 }
+
+#editor .olab-activity-item a,
+#editor .olab-activity-item a:hover {
+    pointer-events: none;
+}
