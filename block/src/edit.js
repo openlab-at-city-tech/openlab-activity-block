@@ -1,6 +1,7 @@
-import { ServerSideRender, SelectControl, RadioControl, CheckboxControl, PanelBody } from '@wordpress/components';
+import { SelectControl, RadioControl, CheckboxControl, PanelBody } from '@wordpress/components';
 import { InspectorControls, useBlockProps } from "@wordpress/block-editor";
 import { useState, useEffect } from '@wordpress/element';
+import ServerSideRender from '@wordpress/server-side-render';
 
 import './editor.scss';
 

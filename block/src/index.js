@@ -1,6 +1,5 @@
 import { registerBlockType } from '@wordpress/blocks';
 import { useBlockProps, RichText, MediaUpload,  InnerBlocks } from '@wordpress/block-editor';
-import { ServerSideRender } from '@wordpress/components';
 
 import Edit from './edit';
 
