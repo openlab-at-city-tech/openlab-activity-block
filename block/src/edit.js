@@ -14,6 +14,8 @@ export default function Edit( props ) {
     const [ source, setSource ] = useState('this-group');
     const [ activities, setActivities ] = useState([]);
 
+		const { connectionsEnabled } = OpenLabActivityBlock
+
     useEffect(() => {
         setDisplayStyle(attributes.displayStyle);
         setNumItems(attributes.numItems);
@@ -100,21 +102,23 @@ export default function Edit( props ) {
                         />
                     </div>
 
-                    <div className="olab-ic-field-group">
-                        <h3 className='olab-ic-field-group-label'>{ __( 'Activity Source', 'openlab-activity-block' ) }</h3>
+										{ connectionsEnabled && (
+											<div className="olab-ic-field-group">
+													<h3 className='olab-ic-field-group-label'>{ __( 'Activity Source', 'openlab-activity-block' ) }</h3>
 
-                        <RadioControl
-                            label={ __( 'Activity Source', 'openlab-activity-block' ) }
-														hideLabelFromVision={ true }
-                            selected={ source }
-                            options={ [
-                                { label: __( 'Current group only', 'openlab-modules' ), value: 'this-group' },
-                                { label: __( 'Connected groups', 'openlab-modules' ), value: 'connected-groups' },
-                                { label: __( 'Current + connected groups', 'openlab-modules' ), value: 'all' }
-                            ] }
-                            onChange={ onChangeSource }
-                        />
-										</div>
+													<RadioControl
+															label={ __( 'Activity Source', 'openlab-activity-block' ) }
+															hideLabelFromVision={ true }
+															selected={ source }
+															options={ [
+																	{ label: __( 'Current group only', 'openlab-modules' ), value: 'this-group' },
+																	{ label: __( 'Connected groups', 'openlab-modules' ), value: 'connected-groups' },
+																	{ label: __( 'Current + connected groups', 'openlab-modules' ), value: 'all' }
+															] }
+															onChange={ onChangeSource }
+													/>
+											</div>
+										) }
 
                     <div className="olab-ic-field-group">
                         <label className='olab-ic-field-group-label'>Activities</label>
