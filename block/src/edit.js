@@ -1,6 +1,7 @@
 import { SelectControl, RadioControl, CheckboxControl, PanelBody } from '@wordpress/components';
 import { InspectorControls, useBlockProps } from "@wordpress/block-editor";
 import { useState, useEffect } from '@wordpress/element';
+import { __ } from '@wordpress/i18n';
 import ServerSideRender from '@wordpress/server-side-render';
 
 import './editor.scss';
@@ -10,11 +11,13 @@ export default function Edit( props ) {
 
     const [ displayStyle, setDisplayStyle ] = useState('full');
     const [ numItems, setNumItems ] = useState(5);
+    const [ source, setSource ] = useState('this-group');
     const [ activities, setActivities ] = useState([]);
 
     useEffect(() => {
         setDisplayStyle(attributes.displayStyle);
         setNumItems(attributes.numItems);
+				setSource(attributes.source);
         setActivities(attributes.activities);
     });
 
@@ -55,6 +58,11 @@ export default function Edit( props ) {
         setAttributes( { activities: checkedList } );
     }
 
+		function onChangeSource( source ) {
+			setSource( source )
+			setAttributes( { source } )
+		}
+
     return (
         <div { ...useBlockProps() }>
             <InspectorControls>
@@ -70,6 +78,7 @@ export default function Edit( props ) {
                             onChange={ onChangeDisplayStyle }
                         />
                     </div>
+
                     <div className="olab-ic-field-group">
                         <SelectControl
                             label="Number of items"
@@ -90,6 +99,23 @@ export default function Edit( props ) {
                             onChange={ onChangeNumItems }
                         />
                     </div>
+
+                    <div className="olab-ic-field-group">
+                        <h3 className='olab-ic-field-group-label'>{ __( 'Activity Source', 'openlab-activity-block' ) }</h3>
+
+                        <RadioControl
+                            label={ __( 'Activity Source', 'openlab-activity-block' ) }
+														hideLabelFromVision={ true }
+                            selected={ source }
+                            options={ [
+                                { label: __( 'Current group only', 'openlab-modules' ), value: 'this-group' },
+                                { label: __( 'Connected groups', 'openlab-modules' ), value: 'connected-groups' },
+                                { label: __( 'Current + connected groups', 'openlab-modules' ), value: 'all' }
+                            ] }
+                            onChange={ onChangeSource }
+                        />
+										</div>
+
                     <div className="olab-ic-field-group">
                         <label className='olab-ic-field-group-label'>Activities</label>
                         { allActivities.map(

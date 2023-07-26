@@ -16,6 +16,10 @@ registerBlockType( 'openlab/activity-block', {
             type: 'integer',
             default: 5
         },
+				source: {
+						type: 'string',
+						default: 'this-group'
+				},
         activities: {
             type: 'array',
             default: []

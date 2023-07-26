@@ -10,6 +10,17 @@ function openlab_render_activity_block( $atts ) {
         'scope'         => 'groups'
     );
 
+	$source = ! empty( $atts['source'] ) ? $atts['source'] : 'this-group';
+	switch ( $source ) {
+		case 'connected-groups' :
+			$args['scope'] = 'connected-groups';
+		break;
+
+		case 'all' :
+			$args['scope'] = 'this-group-and-connected-groups';
+		break;
+	}
+
     $displayStyle = isset( $atts['displayStyle'] ) ? $atts['displayStyle'] : 'full';
     ?>
     <section>

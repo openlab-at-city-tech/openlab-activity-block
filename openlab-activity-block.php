@@ -14,7 +14,7 @@
 function ol_activity_block_init() {
     $asset_file = require_once plugin_dir_path( __FILE__ ) . '/block/build/index.asset.php';
     require_once plugin_dir_path( __FILE__ ) . '/block/src/render.php';
-    
+
     // Register JS script
     wp_register_script(
         'ol-activity-block',
@@ -23,6 +23,15 @@ function ol_activity_block_init() {
         $asset_file['version'],
         true
     );
+
+	$inline_data = [
+		'connectionsEnabled' => defined( 'OPENLAB_CONNECTIONS_PLUGIN_URL' ),
+	];
+
+	wp_add_inline_script(
+		'ol-activity-block',
+		'const OpenLabActivityBlock = ' . json_encode( $inline_data )
+	);
 
     // Register CSS
     wp_register_style(
@@ -46,6 +55,10 @@ function ol_activity_block_init() {
                 'numItems'      => [
                     'type'      => 'integer',
                     'default'   => 5
+                ],
+                'source'      => [
+                    'type'      => 'string',
+                    'default'   => 'this-group',
                 ],
                 'activities'    => [
                     'type'      => 'array',
