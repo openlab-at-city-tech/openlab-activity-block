@@ -21,8 +21,20 @@ class Openlab_Activity_Block_Widget extends WP_Widget {
             'primary_id'    => olab_get_group_id_by_blog_id( get_current_blog_id() ),
             'max'           => isset( $instance['num_items'] ) ? intval( $instance['num_items'] ) : 5,
             'action'        => isset( $instance['activities'] ) ? implode(',', $instance['activities']) : '',
-            'scope'         => 'groups'
+			'source'        => 'this-group',
+            'scope'         => 'groups',
         );
+
+		$source = ! empty( $instance['source'] ) ? $instance['source'] : 'this-group';
+		switch ( $source ) {
+			case 'connected-groups' :
+				$activity_args['scope'] = 'connected-groups';
+			break;
+
+			case 'all' :
+				$activity_args['scope'] = 'this-group-and-connected-groups';
+			break;
+		}
 
         if( bp_has_activities( $activity_args ) ) :
             ?>
@@ -48,6 +60,7 @@ class Openlab_Activity_Block_Widget extends WP_Widget {
         $instance['display_style'] = isset( $new_instance['display_style'] ) ? $new_instance['display_style'] : 'full';
         $instance['num_items'] = isset( $new_instance['num_items'] ) ? (int) $new_instance['num_items'] : 5;
         $instance['activities'] = isset( $new_instance['activities'] ) ? $new_instance['activities'] : array( '' );
+        $instance['source'] = isset( $new_instance['source'] ) ? $new_instance['source'] : 'this-group';
 
         return $instance;
     }
@@ -58,6 +71,10 @@ class Openlab_Activity_Block_Widget extends WP_Widget {
         $title = isset( $instance['title'] ) ? $instance['title'] : ucfirst($group_type) . ' Activity';
         $num_items = isset( $instance['num_items'] ) ? $instance['num_items'] : 5;
         $activities = isset( $instance['activities'] )? $instance['activities'] : array( '' );
+
+		$source = isset( $instance['source'] ) ? $instance['source'] : 'this-group';
+
+		$connections_enabled = defined( 'OPENLAB_CONNECTIONS_PLUGIN_URL' );
 
         $activity_options = array(
             ''                                                  => 'All Activity',

@@ -1,0 +1,25 @@
+{
+    "name": "openlab-at-city-tech/openlab-activity-block",
+    "type": "project",
+    "license": "GPLv3",
+    "authors": [
+        {
+            "name": "Boone B Gorges",
+            "email": "boonebgorges@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "wp-coding-standards/wpcs": "dev-develop",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "phpstan/phpstan": "^1.10",
+        "szepeviktor/phpstan-wordpress": "^1.3",
+        "phpstan/extension-installer": "^1.3"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "phpstan/extension-installer": true,
+            "composer/installers": true
+        }
+    }
+}
