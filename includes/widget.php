@@ -17,9 +17,9 @@ class Openlab_Activity_Block_Widget extends WP_Widget {
 	public function __construct() {
 		parent::__construct(
 			'openlab_activity_block_widget',
-			__( 'OpenLab Activity Widget', 'openlab-activity-widget' ),
+			__( 'OpenLab Activity Widget', 'openlab-activity-block' ),
 			array(
-				'description' => __( 'Display list of activity items related to the site group.', 'openlab-activity-widget' ),
+				'description' => __( 'Display list of activity items related to the site group.', 'openlab-activity-block' ),
 			)
 		);
 	}
