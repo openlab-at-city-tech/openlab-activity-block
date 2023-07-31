@@ -51,7 +51,7 @@ function ol_activity_block_init() {
 	register_block_type(
 		'openlab/activity-block',
 		[
-			'api_version'     => 2,
+			'api_version'     => '2',
 			'editor_script'   => 'ol-activity-block',
 			'editor_style'    => 'ol-activity-block',
 			'attributes'      => array(
