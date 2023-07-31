@@ -8,14 +8,20 @@
  * Author URI:        https://openlab.citytech.cuny.edu/
  * License:           GPL-3.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
+ *
+ * @package openlab-activity-block
  */
 
-
+/**
+ * Initializes the plugin.
+ *
+ * @return void
+ */
 function ol_activity_block_init() {
 	$asset_file = require_once plugin_dir_path( __FILE__ ) . '/block/build/index.asset.php';
 	require_once plugin_dir_path( __FILE__ ) . '/block/src/render.php';
 
-	// Register JS script
+	// Register JS script.
 	wp_register_script(
 		'ol-activity-block',
 		plugins_url( '/block/build/index.js', __FILE__ ),
@@ -30,10 +36,10 @@ function ol_activity_block_init() {
 
 	wp_add_inline_script(
 		'ol-activity-block',
-		'const OpenLabActivityBlock = ' . json_encode( $inline_data )
+		'const OpenLabActivityBlock = ' . wp_json_encode( $inline_data )
 	);
 
-	// Register CSS
+	// Register CSS.
 	wp_register_style(
 		'ol-activity-block',
 		plugins_url( '/block/build/index.css', __FILE__ ),
@@ -41,7 +47,7 @@ function ol_activity_block_init() {
 		$asset_file['version']
 	);
 
-	// Register block
+	// Register block.
 	register_block_type(
 		'openlab/activity-block',
 		[
@@ -79,6 +85,11 @@ function ol_activity_block_init() {
 }
 add_action( 'bp_init', 'ol_activity_block_init' );
 
+/**
+ * Registers the Openlab_Activity_Block_Widget widget.
+ *
+ * @return void
+ */
 function ol_activity_block_widget() {
 	register_widget( 'Openlab_Activity_Block_Widget' );
 }

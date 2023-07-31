@@ -1,7 +1,19 @@
 <?php
+/**
+ * Widget.
+ *
+ * @package openlab-activity-block
+ */
 
+/**
+ * Activity block widget.
+ */
 class Openlab_Activity_Block_Widget extends WP_Widget {
-
+	/**
+	 * Widget constructor.
+	 *
+	 * @return void
+	 */
 	public function __construct() {
 		parent::__construct(
 			'openlab_activity_block_widget',
@@ -12,9 +24,18 @@ class Openlab_Activity_Block_Widget extends WP_Widget {
 		);
 	}
 
+	/**
+	 * Generates the widget markup.
+	 *
+	 * @param mixed[] $args     Widget configuration.
+	 * @param mixed[] $instance Saved widget settings.
+	 * @return void
+	 */
 	public function widget( $args, $instance ) {
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $args['before_widget'];
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $args['before_title'] . esc_html( $instance['title'] ) . $args['after_title'];
 
 		$activity_args = array(
@@ -44,22 +65,31 @@ class Openlab_Activity_Block_Widget extends WP_Widget {
 					bp_the_activity();
 					?>
 				<li>
+					<?php // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					<?php echo olab_get_activity_action( null, 'simple' ); ?>
 				</li>
 				<?php endwhile; ?>
 			</ul>
 			<?php
 		else :
-			_e( 'Sorry, there was no activity found. Please try a different filter.', 'buddypress' );
+			esc_html_e( 'Sorry, there was no activity found. Please try a different filter.', 'openlab-activity-block' );
 		endif;
 
+		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo $args['after_widget'];
 	}
 
+	/**
+	 * Save routine for widget settings.
+	 *
+	 * @param mixed[] $new_instance New settings.
+	 * @param mixed[] $old_instance Old settings.
+	 * @return mixed[]
+	 */
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
-		$instance['title']         = strip_tags( $new_instance['title'] );
+		$instance['title']         = wp_strip_all_tags( $new_instance['title'] );
 		$instance['display_style'] = isset( $new_instance['display_style'] ) ? $new_instance['display_style'] : 'full';
 		$instance['num_items']     = isset( $new_instance['num_items'] ) ? (int) $new_instance['num_items'] : 5;
 		$instance['activities']    = isset( $new_instance['activities'] ) ? $new_instance['activities'] : array( '' );
@@ -68,6 +98,11 @@ class Openlab_Activity_Block_Widget extends WP_Widget {
 		return $instance;
 	}
 
+	/**
+	 * Generates the markup for the widget settings form.
+	 *
+	 * @param mixed[] $instance Saved widget settings.
+	 */
 	public function form( $instance ) {
 		$group_type = olab_get_group_type_by_blog_id( get_current_blog_id() );
 
@@ -94,14 +129,14 @@ class Openlab_Activity_Block_Widget extends WP_Widget {
 		);
 		?>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>">Title:</label><br />
-			<input type="text" name="<?php echo $this->get_field_name( 'title' ); ?>" id="<?php echo $this->get_field_id( 'title' ); ?>" value="<?php echo esc_attr( $title ); ?>" class="widefat" />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">Title:</label><br />
+			<input type="text" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" value="<?php echo esc_attr( $title ); ?>" class="widefat" />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id( 'num_items' ); ?>">How many items would you like to include?</label><br />
-			<select name="<?php echo $this->get_field_name( 'num_items' ); ?>" id="<?php echo $this->get_field_id( 'title' ); ?>" class="widefat">
+			<label for="<?php echo esc_attr( $this->get_field_id( 'num_items' ) ); ?>">How many items would you like to include?</label><br />
+			<select name="<?php echo esc_attr( $this->get_field_name( 'num_items' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'num_items' ) ); ?>" class="widefat">
 				<?php for ( $i = 1; $i < 11; $i++ ) { ?>
-				<option value="<?php echo $i; ?>" <?php selected( $num_items, $i ); ?>><?php echo $i; ?></option>
+				<option value="<?php echo esc_attr( $i ); ?>" <?php selected( $num_items, $i ); ?>><?php echo esc_html( $i ); ?></option>
 				<?php } ?>
 			</select>
 		</p>
@@ -121,9 +156,8 @@ class Openlab_Activity_Block_Widget extends WP_Widget {
 			<label>What types of activity would you like to include?</label><br />
 			<?php foreach ( $activity_options as $key => $value ) { ?>
 			<label>
-				<input type="checkbox" name="<?php echo $this->get_field_name( 'activities' ); ?>[]" value="<?php echo $key; ?>"
-				<?php checked( in_array( $key, $activities ) ); ?> />
-				<?php echo $value; ?>
+				<input type="checkbox" name="<?php echo esc_attr( $this->get_field_name( 'activities' ) ); ?>[]" value="<?php echo esc_attr( $key ); ?>" <?php checked( in_array( $key, $activities, true ) ); ?> />
+				<?php echo esc_html( $value ); ?>
 			</label>
 			<br />
 			<?php } ?>
