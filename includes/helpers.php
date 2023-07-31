@@ -119,30 +119,24 @@ function olab_get_activity_button_label( $activity_type ) {
  * @return string
  */
 function olab_get_activity_button_url( $activity ) {
-	global $activities_template;
-
-	if ( null === $activity ) {
-		$activity = $activities_template->activity;
-	}
-
-	switch ( $activity->type ) {
+	switch ( $activity->type ) { // @phpstan-ignore-line
 		case 'edited_group_document':
 		case 'added_group_document':
-			$document = new BP_Group_Documents( (string) $activity->secondary_item_id );
-			return $document->get_url( false );
+			$document = new BP_Group_Documents( (string) $activity->secondary_item_id ); // @phpstan-ignore-line
+			return $document->get_url( false ); // @phpstan-ignore-line
 		case 'bp_doc_created':
 		case 'bp_doc_edited':
-			return $activity->primary_link;
+			return $activity->primary_link; // @phpstan-ignore-line
 		case 'created_group':
 		case 'joined_group':
 		case 'bpges_notice':
-			$group = bp_get_group_by( 'id', $activity->item_id );
+			$group = bp_get_group_by( 'id', $activity->item_id ); // @phpstan-ignore-line
 			return bp_get_group_permalink( $group );
 		case 'default':
-			return $activity->primary_link;
+			return $activity->primary_link; // @phpstan-ignore-line
 	}
 
-	return $activity->primary_link;
+	return $activity->primary_link; // @phpstan-ignore-line
 }
 
 /**

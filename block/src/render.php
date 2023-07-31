@@ -16,7 +16,7 @@ function openlab_render_activity_block( $atts ) {
 
 	$args = array(
 		'primary_id' => olab_get_group_id_by_blog_id( get_current_blog_id() ),
-		'max'        => isset( $atts['numItems'] ) ? intval( $atts['numItems'] ) : 5,
+		'max'        => isset( $atts['numItems'] ) ? intval( $atts['numItems'] ) : 5, // @phpstan-ignore-line
 		'action'     => isset( $atts['activities'] ) ? implode( ',', $atts['activities'] ) : '',
 		'scope'      => 'groups',
 	);
@@ -36,7 +36,7 @@ function openlab_render_activity_block( $atts ) {
 	?>
 	<section>
 		<?php if ( bp_has_activities( $args ) ) : ?>
-			<div class="olab-activity-stream olab-activity-stream-<?php echo esc_attr( $display_stile ); ?>">
+			<div class="olab-activity-stream olab-activity-stream-<?php echo esc_attr( $display_style ); ?>">
 				<?php
 				while ( bp_activities() ) :
 					bp_the_activity();
@@ -80,6 +80,10 @@ function openlab_render_activity_block( $atts ) {
 	</section>
 	<?php
 	$html = ob_get_clean();
+
+	if ( ! $html ) {
+		$html = '';
+	}
 
 	return $html;
 }

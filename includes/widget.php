@@ -33,14 +33,14 @@ class Openlab_Activity_Block_Widget extends WP_Widget {
 	 */
 	public function widget( $args, $instance ) {
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo $args['before_widget'];
+		echo $args['before_widget']; // @phpstan-ignore-line
 
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo $args['before_title'] . esc_html( $instance['title'] ) . $args['after_title'];
+		echo $args['before_title'] . esc_html( $instance['title'] ) . $args['after_title']; // @phpstan-ignore-line
 
 		$activity_args = array(
 			'primary_id' => olab_get_group_id_by_blog_id( get_current_blog_id() ),
-			'max'        => isset( $instance['num_items'] ) ? intval( $instance['num_items'] ) : 5,
+			'max'        => isset( $instance['num_items'] ) ? intval( $instance['num_items'] ) : 5, // @phpstan-ignore-line
 			'action'     => isset( $instance['activities'] ) ? implode( ',', $instance['activities'] ) : '',
 			'source'     => 'this-group',
 			'scope'      => 'groups',
@@ -76,7 +76,7 @@ class Openlab_Activity_Block_Widget extends WP_Widget {
 		endif;
 
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
-		echo $args['after_widget'];
+		echo $args['after_widget']; // @phpstan-ignore-line
 	}
 
 	/**
@@ -89,7 +89,9 @@ class Openlab_Activity_Block_Widget extends WP_Widget {
 	public function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
 
-		$instance['title']         = wp_strip_all_tags( $new_instance['title'] );
+		$new_title = isset( $new_instance['title'] ) && is_string( $new_instance['title'] ) ? $new_instance['title'] : '';
+
+		$instance['title']         = wp_strip_all_tags( $new_title );
 		$instance['display_style'] = isset( $new_instance['display_style'] ) ? $new_instance['display_style'] : 'full';
 		$instance['num_items']     = isset( $new_instance['num_items'] ) ? (int) $new_instance['num_items'] : 5;
 		$instance['activities']    = isset( $new_instance['activities'] ) ? $new_instance['activities'] : array( '' );
@@ -102,11 +104,18 @@ class Openlab_Activity_Block_Widget extends WP_Widget {
 	 * Generates the markup for the widget settings form.
 	 *
 	 * @param mixed[] $instance Saved widget settings.
+	 * @return string
 	 */
 	public function form( $instance ) {
 		$group_type = olab_get_group_type_by_blog_id( get_current_blog_id() );
 
-		$title      = isset( $instance['title'] ) ? $instance['title'] : ucfirst( $group_type ) . ' Activity';
+		if ( isset( $instance['title'] ) && is_string( $instance['title'] ) ) {
+			$title = $instance['title'];
+		} else {
+			// translators: Group type.
+			$title = sprintf( '%s Activity', ucfirst( $group_type ) );
+		}
+
 		$num_items  = isset( $instance['num_items'] ) ? $instance['num_items'] : 5;
 		$activities = isset( $instance['activities'] ) ? $instance['activities'] : array( '' );
 
@@ -136,7 +145,7 @@ class Openlab_Activity_Block_Widget extends WP_Widget {
 			<label for="<?php echo esc_attr( $this->get_field_id( 'num_items' ) ); ?>">How many items would you like to include?</label><br />
 			<select name="<?php echo esc_attr( $this->get_field_name( 'num_items' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'num_items' ) ); ?>" class="widefat">
 				<?php for ( $i = 1; $i < 11; $i++ ) { ?>
-				<option value="<?php echo esc_attr( $i ); ?>" <?php selected( $num_items, $i ); ?>><?php echo esc_html( $i ); ?></option>
+				<option value="<?php echo esc_attr( (string) $i ); ?>" <?php selected( $num_items, $i ); ?>><?php echo esc_html( (string) $i ); ?></option>
 				<?php } ?>
 			</select>
 		</p>
@@ -163,5 +172,7 @@ class Openlab_Activity_Block_Widget extends WP_Widget {
 			<?php } ?>
 		</p>
 		<?php
+
+		return '';
 	}
 }

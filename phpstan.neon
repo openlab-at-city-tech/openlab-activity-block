@@ -1,0 +1,16 @@
+parameters:
+  level: 9
+
+  # Doesn't work properly when extending WP core classes.
+  checkGenericClassInNonGenericObjectType: false
+
+  paths:
+    - .
+
+  excludePaths:
+    - ./vendor/
+    - ./node_modules/
+
+  ignoreErrors:
+    - # Can't easily scan BP
+      message: '#Function (bp_activities|bp_activity_avatar|bp_activity_user_link|bp_core_get_userlink|bp_get_current_group_id|bp_get_group|bp_get_group_by|bp_get_group_name|bp_get_group_permalink|bp_has_activities|bp_is_active|bp_is_group|bp_the_activity|groups_get_groupmeta) not found.#'
