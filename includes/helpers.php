@@ -198,7 +198,7 @@ function openlab_activity_block_show_activity_source_for_site( $site_id ) {
 		return false;
 	}
 
-	$connections = \OpenLab\Connections\Connection::get( [ 'group_id' => $group_id ] );
+	$connections = \OpenLab\Connections\Connection::get( [ 'group_id' => $group_id ] ); // @phpstan-ignore-line
 
 	return ! empty( $connections );
 }
