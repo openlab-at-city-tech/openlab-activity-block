@@ -12,27 +12,25 @@ function olab_get_activity_action( $activity = null, $displayStyle = 'full' ) {
 
 	// Get activity body content
 	$output = $activity->action;
-	
+
 	// Remove link from the user's display name
-	if( $displayStyle == 'simple' ) {
+	if ( $displayStyle == 'simple' ) {
 		$activity_user_link = bp_core_get_userlink( $activity->user_id );
-		$output = str_replace( $activity_user_link, $activity->display_name, $output );
+		$output             = str_replace( $activity_user_link, $activity->display_name, $output );
 	}
 
 	// Remove "in the group/forum" text from the activity on the group activity stream
-	if( bp_is_group() ) {
-		$group = bp_get_group( bp_get_current_group_id() );
+	if ( bp_is_group() ) {
+		$group      = bp_get_group( bp_get_current_group_id() );
 		$group_link = bp_get_group_permalink( $group );
-		$output = preg_replace( '/in the group <a href="[^"]+">' . preg_quote( bp_get_group_name() ) . '<\/a>/', '', $output );
-		$output = str_replace( 'in the forum <a href="' . $group_link . 'forum/">' . bp_get_group_name() . '</a>', '', $output );
-		$output = str_replace( 'in <a href="' . $group_link . '">' . bp_get_group_name() . '</a>', '', $output );
-	} else {
-		if( $activity->type == 'bbp_topic_create' || $activity->type == 'bbp_reply_create' ) {
+		$output     = preg_replace( '/in the group <a href="[^"]+">' . preg_quote( bp_get_group_name() ) . '<\/a>/', '', $output );
+		$output     = str_replace( 'in the forum <a href="' . $group_link . 'forum/">' . bp_get_group_name() . '</a>', '', $output );
+		$output     = str_replace( 'in <a href="' . $group_link . '">' . bp_get_group_name() . '</a>', '', $output );
+	} elseif ( $activity->type == 'bbp_topic_create' || $activity->type == 'bbp_reply_create' ) {
 			$output = str_replace( 'in the forum', 'in the group', $output );
-		}
 	}
 
-	if( $activity->type == 'added_group_document' ) {
+	if ( $activity->type == 'added_group_document' ) {
 		$output = str_replace( 'uploaded the file', 'added the file', $output );
 	}
 
@@ -46,15 +44,15 @@ function olab_get_activity_action( $activity = null, $displayStyle = 'full' ) {
 	$activity_datetime->setTimezone( $wp_timezone );
 
 	// Modify activity date format, remove link and add "on" before the date
-	$output .= ' on ' . $activity_datetime->format('F d, Y \a\t g:i a');
-	$output = wpautop( $output );
+	$output .= ' on ' . $activity_datetime->format( 'F d, Y \a\t g:i a' );
+	$output  = wpautop( $output );
 
 	// Activity view button
 	$view_button_label = olab_get_activity_button_label( $activity->type );
-	$view_button_link = olab_get_activity_button_url( $activity );
+	$view_button_link  = olab_get_activity_button_url( $activity );
 
 	// Append activity view button
-	if( $view_button_label ) {
+	if ( $view_button_label ) {
 		$output .= '<a href="' . $view_button_link . '" class="olab-activity-item-button">' . $view_button_label . '</a>';
 	}
 
@@ -66,7 +64,7 @@ function olab_get_activity_action( $activity = null, $displayStyle = 'full' ) {
  * Get activity button label
  */
 function olab_get_activity_button_label( $activity_type ) {
-    switch ( $activity_type ) {
+	switch ( $activity_type ) {
 		case 'edited_group_document' :
 		case 'added_group_document' :
 			return 'View File';
@@ -88,7 +86,7 @@ function olab_get_activity_button_label( $activity_type ) {
 		case 'new_blog_comment' :
 			return 'View Comment';
 		case 'created_group' :
-		case 'joined_group'	:
+		case 'joined_group' :
 		case 'bpges_notice' :
 			return 'View Group';
 		case 'new_blog' :
@@ -96,8 +94,8 @@ function olab_get_activity_button_label( $activity_type ) {
 		case 'new_avatar' :
 		case 'updated_profile' :
 			return 'View Profile';
-        default:
-            return 'View';
+		default:
+			return 'View';
 	}
 }
 
@@ -105,16 +103,16 @@ function olab_get_activity_button_label( $activity_type ) {
  * Get BP activity button url
  */
 function olab_get_activity_button_url( $activity ) {
-    global $activities_template;
+	global $activities_template;
 
-	if( null === $activity ) {
+	if ( null === $activity ) {
 		$activity = $activities_template->activity;
 	}
 
-	switch( $activity->type ) {
+	switch ( $activity->type ) {
 		case 'edited_group_document':
 		case 'added_group_document':
-			$document = new BP_Group_Documents( (string)$activity->secondary_item_id );
+			$document = new BP_Group_Documents( (string) $activity->secondary_item_id );
 			return $document->get_url( false );
 		case 'bp_doc_created':
 		case 'bp_doc_edited':
