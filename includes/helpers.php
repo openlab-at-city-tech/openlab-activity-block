@@ -80,35 +80,35 @@ function olab_get_activity_button_label( $activity_type ) {
 	switch ( $activity_type ) {
 		case 'edited_group_document' :
 		case 'added_group_document' :
-			return 'View File';
+			return __( 'View File', 'openlab-activity-block' );
 		case 'bp_doc_created' :
 		case 'bp_doc_edited' :
 		case 'bp_doc_comment' :
-			return 'View Doc';
+			return __( 'View Doc', 'openlab-activity-block' );
 		case 'bpeo_create_event' :
-			return 'View Event';
+			return __( 'View Event', 'openlab-activity-block' );
 		case 'created_announcement' :
-			return 'View Announcement';
+			return __( 'View Announcement', 'openlab-activity-block' );
 		case 'created_announcement_reply' :
 		case 'bbp_reply_create' :
-			return 'View Reply';
+			return __( 'View Reply', 'openlab-activity-block' );
 		case 'bbp_topic_create' :
-			return 'View Discussion Topic';
+			return __( 'View Discussion Topic', 'openlab-activity-block' );
 		case 'new_blog_post' :
-			return 'View Post';
+			return __( 'View Post', 'openlab-activity-block' );
 		case 'new_blog_comment' :
-			return 'View Comment';
+			return __( 'View Comment', 'openlab-activity-block' );
 		case 'created_group' :
 		case 'joined_group' :
 		case 'bpges_notice' :
-			return 'View Group';
+			return __( 'View Group', 'openlab-activity-block' );
 		case 'new_blog' :
-			return 'View Site';
+			return __( 'View Site', 'openlab-activity-block' );
 		case 'new_avatar' :
 		case 'updated_profile' :
-			return 'View Profile';
+			return __( 'View Profile', 'openlab-activity-block' );
 		default:
-			return 'View';
+			return __( 'View', 'openlab-activity-block' );
 	}
 }
 
