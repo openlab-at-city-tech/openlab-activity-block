@@ -121,7 +121,7 @@ class Openlab_Activity_Block_Widget extends WP_Widget {
 
 		$source = isset( $instance['source'] ) ? $instance['source'] : 'this-group';
 
-		$connections_enabled = defined( 'OPENLAB_CONNECTIONS_PLUGIN_URL' );
+		$connections_enabled = openlab_activity_block_show_activity_source_for_site( get_current_blog_id() );
 
 		$activity_options = array(
 			''                     => 'All Activity',

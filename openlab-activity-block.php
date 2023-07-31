@@ -31,7 +31,7 @@ function ol_activity_block_init() {
 	);
 
 	$inline_data = [
-		'connectionsEnabled' => defined( 'OPENLAB_CONNECTIONS_PLUGIN_URL' ),
+		'connectionsEnabled' => openlab_activity_block_show_activity_source_for_site( get_current_blog_id() ),
 	];
 
 	wp_add_inline_script(

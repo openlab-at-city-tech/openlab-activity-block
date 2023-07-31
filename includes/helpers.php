@@ -180,3 +180,25 @@ function olab_get_group_type_by_blog_id( $blog_id ) {
 
 	return $group_type;
 }
+
+/**
+ * Determine whether to show the 'Activity Source' setting on a given site.
+ *
+ * @param int $site_id ID of the site.
+ * @return bool
+ */
+function openlab_activity_block_show_activity_source_for_site( $site_id ) {
+	// Never show if the Connections plugin is not available.
+	if ( ! defined( 'OPENLAB_CONNECTIONS_PLUGIN_URL' ) ) {
+		return false;
+	}
+
+	$group_id = olab_get_group_id_by_blog_id( $site_id );
+	if ( ! $group_id ) {
+		return false;
+	}
+
+	$connections = \OpenLab\Connections\Connection::get( [ 'group_id' => $group_id ] );
+
+	return ! empty( $connections );
+}
