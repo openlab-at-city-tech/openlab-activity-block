@@ -17,9 +17,9 @@ class Openlab_Activity_Block_Widget extends WP_Widget {
 	public function __construct() {
 		parent::__construct(
 			'openlab_activity_block_widget',
-			'OpenLab Activity Widget',
+			__( 'OpenLab Activity Widget', 'openlab-activity-widget' ),
 			array(
-				'description' => 'Display list of BP activities related to the site group.',
+				'description' => __( 'Display list of activity items related to the site group.', 'openlab-activity-widget' ),
 			)
 		);
 	}
@@ -124,25 +124,25 @@ class Openlab_Activity_Block_Widget extends WP_Widget {
 		$connections_enabled = openlab_activity_block_show_activity_source_for_site( get_current_blog_id() );
 
 		$activity_options = array(
-			''                     => 'All Activity',
-			'created_announcement,created_announcement_reply' => 'Announcements',
-			'new_blog_post'        => 'Posts',
-			'new_blog_comment'     => 'Comments',
-			'joined_group'         => 'Group Memberships',
-			'added_group_document' => 'New Files',
-			'bp_doc_created'       => 'New Docs',
-			'bp_doc_edited'        => 'Doc Edits',
-			'bp_doc_comment'       => 'Doc Comments',
-			'bbp_topic_create'     => 'New Discussion Topics',
-			'bbp_reply_create'     => 'Discussion Replies',
+			''                     => __( 'All Activity', 'openlab-activity-block' ),
+			'created_announcement,created_announcement_reply' => __( 'Announcements', 'openlab-activity-block' ),
+			'new_blog_post'        => __( 'Posts', 'openlab-activity-block' ),
+			'new_blog_comment'     => __( 'Comments', 'openlab-activity-block' ),
+			'joined_group'         => __( 'Group Memberships', 'openlab-activity-block' ),
+			'added_group_document' => __( 'New Files', 'openlab-activity-block' ),
+			'bp_doc_created'       => __( 'New Docs', 'openlab-activity-block' ),
+			'bp_doc_edited'        => __( 'Doc Edits', 'openlab-activity-block' ),
+			'bp_doc_comment'       => __( 'Doc Comments', 'openlab-activity-block' ),
+			'bbp_topic_create'     => __( 'New Discussion Topics', 'openlab-activity-block' ),
+			'bbp_reply_create'     => __( 'Discussion Replies', 'openlab-activity-block' ),
 		);
 		?>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>">Title:</label><br />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>"><?php esc_html_e( 'Title:', 'openlab-activity-block' ); ?></label><br />
 			<input type="text" name="<?php echo esc_attr( $this->get_field_name( 'title' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'title' ) ); ?>" value="<?php echo esc_attr( $title ); ?>" class="widefat" />
 		</p>
 		<p>
-			<label for="<?php echo esc_attr( $this->get_field_id( 'num_items' ) ); ?>">How many items would you like to include?</label><br />
+			<label for="<?php echo esc_attr( $this->get_field_id( 'num_items' ) ); ?>"><?php esc_html_e( 'How many items would you like to include?', 'openlab-activity-block' ); ?></label><br />
 			<select name="<?php echo esc_attr( $this->get_field_name( 'num_items' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'num_items' ) ); ?>" class="widefat">
 				<?php for ( $i = 1; $i < 11; $i++ ) { ?>
 				<option value="<?php echo esc_attr( (string) $i ); ?>" <?php selected( $num_items, $i ); ?>><?php echo esc_html( (string) $i ); ?></option>
@@ -152,17 +152,17 @@ class Openlab_Activity_Block_Widget extends WP_Widget {
 
 		<?php if ( $connections_enabled ) : ?>
 			<p>
-				<label for="<?php echo esc_attr( $this->get_field_id( 'source' ) ); ?>">Activity Source:</label><br />
+				<label for="<?php echo esc_attr( $this->get_field_id( 'source' ) ); ?>"><?php esc_html_e( 'Activity Source:', 'openlab-activity-block' ); ?></label><br />
 				<select name="<?php echo esc_attr( $this->get_field_name( 'source' ) ); ?>" id="<?php echo esc_attr( $this->get_field_id( 'source' ) ); ?>">
-					<option value="this-group" <?php selected( $source, 'this-group' ); ?>>Current group only</option>
-					<option value="connected-groups" <?php selected( $source, 'connected-groups' ); ?>>Connected groups</option>
-					<option value="all" <?php selected( $source, 'all' ); ?>>Current + connected groups</option>
+					<option value="this-group" <?php selected( $source, 'this-group' ); ?>><?php esc_html_e( 'Current group only', 'openlab-activity-block' ); ?></option>
+					<option value="connected-groups" <?php selected( $source, 'connected-groups' ); ?>><?php esc_html_e( 'Connected groups', 'openlab-activity-block' ); ?></option>
+					<option value="all" <?php selected( $source, 'all' ); ?>><?php esc_html_e( 'Current + connected groups', 'openlab-activity-block' ); ?></option>
 				</select>
 			</p>
 		<?php endif; ?>
 
 		<p>
-			<label>What types of activity would you like to include?</label><br />
+			<label><?php esc_html_e( 'What types of activity would you like to include?', 'openlab-activity-block' ); ?></label><br />
 			<?php foreach ( $activity_options as $key => $value ) { ?>
 			<label>
 				<input type="checkbox" name="<?php echo esc_attr( $this->get_field_name( 'activities' ) ); ?>[]" value="<?php echo esc_attr( $key ); ?>" <?php checked( in_array( $key, $activities, true ) ); ?> />
