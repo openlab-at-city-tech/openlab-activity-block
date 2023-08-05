@@ -43,7 +43,7 @@ class Openlab_Activity_Block_Widget extends WP_Widget {
 			'max'        => isset( $instance['num_items'] ) ? intval( $instance['num_items'] ) : 5, // @phpstan-ignore-line
 			'action'     => isset( $instance['activities'] ) ? implode( ',', $instance['activities'] ) : '',
 			'source'     => 'this-group',
-			'scope'      => 'groups',
+			'object'     => 'groups',
 		);
 
 		$source = ! empty( $instance['source'] ) ? $instance['source'] : 'this-group';

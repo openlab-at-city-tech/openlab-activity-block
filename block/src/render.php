@@ -18,7 +18,7 @@ function openlab_render_activity_block( $atts ) {
 		'primary_id' => olab_get_group_id_by_blog_id( get_current_blog_id() ),
 		'max'        => isset( $atts['numItems'] ) ? intval( $atts['numItems'] ) : 5, // @phpstan-ignore-line
 		'action'     => isset( $atts['activities'] ) ? implode( ',', $atts['activities'] ) : '',
-		'scope'      => 'groups',
+		'object'     => 'groups',
 	);
 
 	$source = ! empty( $atts['source'] ) ? $atts['source'] : 'this-group';
