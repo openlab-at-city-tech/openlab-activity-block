@@ -36,8 +36,16 @@
     font-size: 14px;
 }
 
-.olab-activity-item-button {
-	font-size: 12px;
+body .olab-activity-entry-activity-action p:last-child {
+	margin-bottom: .5em;
+}
+
+.olab-activity-item-view-link {
+	font-weight: 700;
+}
+
+.olab-activity-item-view-link span.fa {
+	margin-left: 5px;
 }
 
 /* Simple view */

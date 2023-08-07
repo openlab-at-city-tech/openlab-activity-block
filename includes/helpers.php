@@ -56,7 +56,7 @@ function olab_get_activity_action( $activity = null, $display_style = 'full' ) {
 
 	// Modify activity date format, remove link and add "on" before the date.
 	$output .= ' on ' . $activity_datetime->format( 'F d, Y \a\t g:i a' );
-	$output  = wpautop( $output );
+	$output  = '<div class="olab-activity-entry-activity-action">' . wpautop( $output ) . '</div>';
 
 	// Activity view button.
 	$view_button_label = olab_get_activity_button_label( $activity->type );
@@ -64,7 +64,7 @@ function olab_get_activity_action( $activity = null, $display_style = 'full' ) {
 
 	// Append activity view button.
 	if ( $view_button_label ) {
-		$output .= '<button class="olab-activity-item-button" type="button" role="link" onclick="window.location.href=\'' . esc_url( $view_button_link ) . '\'">' . esc_html( $view_button_label ) . '</button>';
+		$output .= '<p class="olab-activity-item-view-link"><a href="' . esc_url( $view_button_link ) . '">' . esc_html( $view_button_label ) . '</a><span class="fa fa-chevron-circle-right" aria-hidden="true"></span></p>';
 	}
 
 	return $output;
