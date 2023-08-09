@@ -64,7 +64,7 @@ function olab_get_activity_action( $activity = null, $display_style = 'full' ) {
 
 	// Append activity view button.
 	if ( $view_button_label ) {
-		$output .= '<p class="olab-activity-item-view-link"><a href="' . esc_url( $view_button_link ) . '">' . esc_html( $view_button_label ) . '</a><span class="fa fa-chevron-circle-right" aria-hidden="true"></span></p>';
+		$output .= '<p class="olab-activity-item-view-link"><a href="' . esc_url( $view_button_link ) . '">' . esc_html( $view_button_label ) . '<span class="fa fa-chevron-circle-right" aria-hidden="true"></span></a></p>';
 	}
 
 	return $output;
